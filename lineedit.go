@@ -9,10 +9,8 @@ package walk
 import (
 	"syscall"
 	"unsafe"
-)
 
-import (
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 type CaseMode uint32

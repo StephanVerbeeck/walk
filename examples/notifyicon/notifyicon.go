@@ -9,7 +9,7 @@ import (
 )
 
 import (
-	"github.com/lxn/walk"
+	"github.com/StephanVerbeeck/walk"
 )
 
 func main() {

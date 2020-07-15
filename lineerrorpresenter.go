@@ -9,10 +9,8 @@ package walk
 import (
 	"bytes"
 	"strings"
-)
 
-import (
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 const lineErrorPresenterWindowClass = `\o/ Walk_LineErrorPresenter_Class \o/`

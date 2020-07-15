@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 const splitterWindowClass = `\o/ Walk_Splitter_Class \o/`

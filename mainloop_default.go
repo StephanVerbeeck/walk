@@ -7,8 +7,9 @@
 package walk
 
 import (
-	"github.com/lxn/win"
 	"unsafe"
+
+	"github.com/StephanVerbeeck/win"
 )
 
 func (fb *FormBase) mainLoop() int {

@@ -8,15 +8,12 @@ package declarative
 
 import (
 	"fmt"
+	"log"
 	"reflect"
 	"regexp"
-)
-
-import (
-	"log"
 	"strings"
 
-	"github.com/lxn/walk"
+	"github.com/StephanVerbeeck/walk"
 	"gopkg.in/Knetic/govaluate.v3"
 )
 

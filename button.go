@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"unsafe"
 
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 type clickable interface {

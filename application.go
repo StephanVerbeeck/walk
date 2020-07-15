@@ -8,10 +8,8 @@ package walk
 
 import (
 	"time"
-)
 
-import (
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 type Settings interface {

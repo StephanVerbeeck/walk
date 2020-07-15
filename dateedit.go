@@ -11,9 +11,9 @@ import (
 	"syscall"
 	"time"
 	"unsafe"
-)
 
-import "github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
+)
 
 type DateEdit struct {
 	WidgetBase

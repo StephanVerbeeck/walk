@@ -10,7 +10,7 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 type ImageViewMode int

@@ -8,10 +8,8 @@ package walk
 
 import (
 	"syscall"
-)
 
-import (
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 func knownFolderPath(id win.CSIDL) (string, error) {

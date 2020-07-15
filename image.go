@@ -9,7 +9,7 @@ package walk
 import (
 	"strings"
 
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 type Image interface {

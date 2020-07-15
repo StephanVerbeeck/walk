@@ -13,7 +13,7 @@ import (
 import (
 	"strconv"
 
-	"github.com/lxn/walk"
+	"github.com/StephanVerbeeck/walk"
 )
 
 type Shortcut struct {

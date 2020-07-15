@@ -8,10 +8,8 @@ package walk
 
 import (
 	"syscall"
-)
 
-import (
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 const groupBoxWindowClass = `\o/ Walk_GroupBox_Class \o/`

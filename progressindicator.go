@@ -7,12 +7,10 @@
 package walk
 
 import (
-	"unsafe"
-)
-
-import (
-	"github.com/lxn/win"
 	"syscall"
+	"unsafe"
+
+	"github.com/StephanVerbeeck/win"
 )
 
 type ProgressIndicator struct {

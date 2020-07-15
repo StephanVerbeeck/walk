@@ -7,8 +7,9 @@
 package walk
 
 import (
-	"github.com/lxn/win"
 	"syscall"
+
+	"github.com/StephanVerbeeck/win"
 )
 
 type DropFilesEventHandler func([]string)

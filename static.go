@@ -9,7 +9,7 @@ package walk
 import (
 	"syscall"
 
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 const staticWindowClass = `\o/ Walk_Static_Class \o/`

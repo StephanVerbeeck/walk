@@ -8,10 +8,8 @@ package walk
 
 import (
 	"bytes"
-)
 
-import (
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 type Key uint16

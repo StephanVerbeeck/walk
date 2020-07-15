@@ -9,7 +9,7 @@ package walk
 import (
 	"strconv"
 
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 const tabPageWindowClass = `\o/ Walk_TabPage_Class \o/`

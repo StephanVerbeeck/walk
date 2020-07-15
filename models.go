@@ -7,7 +7,7 @@
 package walk
 
 import (
-	"github.com/lxn/win"
+	"github.com/StephanVerbeeck/win"
 )
 
 // BindingValueProvider is the interface that a model must implement to support

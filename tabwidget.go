@@ -239,7 +239,7 @@ func (tw *TabWidget) Pages() *TabPageList {
 }
 
 func (tw *TabWidget) PageCount() int {
-	return len(tw.pages.Len)
+	return tw.pages.Len()
 }
 
 func (tw *TabWidget) Persistent() bool {

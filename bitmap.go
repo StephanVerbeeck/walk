@@ -257,7 +257,7 @@ func (bmp *Bitmap) Size() Size {
 	return bmp.size
 }
 
-func (bmp *Bitmap) handle() win.HBITMAP {
+func (bmp *Bitmap) Handle() win.HBITMAP {
 	return bmp.hBmp
 }
 
@@ -305,6 +305,16 @@ func (bmp *Bitmap) withSelectedIntoMemDC(f func(hdcMem win.HDC) error) error {
 
 		return f(hdcMem)
 	})
+}
+
+func ExistingBitmap(hBmp win.HBITMAP, width, height int) (bmp *Bitmap, err error) {
+	bmp = &Bitmap{
+		hBmp:       hBmp,
+		hPackedDIB: 0, // win.HGLOBAL
+		size:       Size{width, height},
+		dpi:        72,
+	}
+	return
 }
 
 func newBitmapFromHBITMAP(hBmp win.HBITMAP) (bmp *Bitmap, err error) {

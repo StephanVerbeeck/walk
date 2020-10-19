@@ -307,7 +307,7 @@ func (bmp *Bitmap) withSelectedIntoMemDC(f func(hdcMem win.HDC) error) error {
 	})
 }
 
-func ExistingBitmap(hBmp win.HBITMAP, width, height int) (bmp *Bitmap, err error) {
+func ExistingBitmap(hBmp win.HBITMAP, width, height int) (bmp *Bitmap) {
 	bmp = &Bitmap{
 		hBmp:       hBmp,
 		hPackedDIB: 0, // win.HGLOBAL

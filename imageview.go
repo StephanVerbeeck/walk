@@ -81,7 +81,7 @@ func NewImageView(parent Container) (*ImageView, error) {
 				return ErrInvalidType
 			}
 
-			return iv.SetImage(img)
+			return iv.SetImage(img, true)
 		},
 		iv.imageChangedPublisher.Event()))
 
@@ -155,11 +155,15 @@ func (iv *ImageView) Image() Image {
 	return iv.image
 }
 
-func (iv *ImageView) SetImage(value Image) error {
+func (iv *ImageView) SetImage(value Image, dispose bool) error {
 	if value == iv.image {
 		return nil
 	}
 
+	if dispose && iv.image != nil {
+		iv.image.Dispose()
+		iv.image = nil
+	}
 	iv.image = value
 
 	_, isMetafile := value.(*Metafile)

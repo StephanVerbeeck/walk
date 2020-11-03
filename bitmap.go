@@ -331,7 +331,13 @@ func newBitmapFromHBITMAP(hBmp win.HBITMAP) (bmp *Bitmap, err error) {
 	totalSize := uintptr(bmihSize + pixelsSize)
 
 	hPackedDIB := win.GlobalAlloc(win.GHND, totalSize)
+	if hPackedDIB == 0 {
+		return nil, newError("Bitmap:out of memory")
+	}
 	dest := win.GlobalLock(hPackedDIB)
+	if dest == nil {
+		return nil, newError("Bitmap:out of memory")
+	}
 	defer win.GlobalUnlock(hPackedDIB)
 
 	src := unsafe.Pointer(&dib.DsBmih)

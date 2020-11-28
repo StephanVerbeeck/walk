@@ -53,8 +53,12 @@ func (rm *ResourceManager) Bitmap(name string) (*Bitmap, error) {
 	if bm := rm.bitmaps[name]; bm != nil {
 		return bm, nil
 	}
+	fileName := name
+	if !IsAbsolutePath(fileName) {
+		fileName = filepath.Join(rm.rootDirPath, fileName)
+	}
 
-	if bm, err := NewBitmapFromFile(filepath.Join(rm.rootDirPath, name)); err == nil {
+	if bm, err := NewBitmapFromFile(fileName); err == nil {
 		rm.bitmaps[name] = bm
 		return bm, nil
 	}

@@ -10,9 +10,7 @@ import (
 	"fmt"
 	"syscall"
 	"unsafe"
-)
 
-import (
 	"github.com/StephanVerbeeck/win"
 )
 
@@ -102,7 +100,7 @@ func NewWebView(parent Container) (*WebView, error) {
 		wv,
 		parent,
 		webViewWindowClass,
-		win.WS_CLIPCHILDREN|win.WS_VISIBLE,
+		win.WS_BORDER|win.WS_CLIPCHILDREN|win.WS_VISIBLE,
 		0); err != nil {
 		return nil, err
 	}
@@ -116,6 +114,13 @@ func NewWebView(parent Container) (*WebView, error) {
 			wv.Dispose()
 		}
 	}()
+
+	if err := wv.setTheme("Explorer"); err != nil {
+		return nil, err
+	}
+
+	wv.GraphicsEffects().Add(InteractionEffect)
+	wv.GraphicsEffects().Add(FocusEffect)
 
 	var classFactoryPtr unsafe.Pointer
 	if hr := win.CoGetClassObject(&win.CLSID_WebBrowser, win.CLSCTX_INPROC_HANDLER|win.CLSCTX_INPROC_SERVER, nil, &win.IID_IClassFactory, &classFactoryPtr); win.FAILED(hr) {

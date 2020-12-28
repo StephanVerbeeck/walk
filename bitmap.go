@@ -254,6 +254,9 @@ func (bmp *Bitmap) Dispose() {
 }
 
 func (bmp *Bitmap) Size() Size {
+	if bmp == nil {
+		return Size{}
+	}
 	return bmp.size
 }
 

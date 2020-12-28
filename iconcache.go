@@ -41,6 +41,9 @@ func (ic *IconCache) Dispose() {
 }
 
 func (ic *IconCache) Bitmap(image Image, dpi int) (*Bitmap, error) {
+	if image == nil {
+		return nil, nil
+	}
 	key := imageAndDPI{image, dpi}
 
 	if bmp, ok := ic.imageAndDPI2Bitmap[key]; ok {

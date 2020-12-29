@@ -7,6 +7,8 @@
 package walk
 
 import (
+	"log"
+
 	"github.com/StephanVerbeeck/win"
 )
 
@@ -99,12 +101,22 @@ type WidgetBase struct {
 	alwaysConsumeSpace          bool
 }
 
+var (
+	initWidgetCounter = 0
+)
+
 // InitWidget initializes a Widget.
 func InitWidget(widget Widget, parent Window, className string, style, exStyle uint32) error {
 	if parent == nil {
 		return newError("parent cannot be nil")
 	}
 
+	if win.UseAssert {
+		initWidgetCounter++
+		c := initWidgetCounter
+		log.Println("-> InitWidget(", className, ")", c)
+		defer log.Println("<- InitWidget(", className, ")", c)
+	}
 	if err := InitWindow(widget, parent, className, style|win.WS_CHILD, exStyle); err != nil {
 		return err
 	}

@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"fmt"
 	"image"
+	"log"
 	"strings"
 	"syscall"
 	"unsafe"
@@ -490,6 +491,11 @@ func MustRegisterWindowClassWithWndProcPtrAndStyle(className string, wndProcPtr 
 //
 // Widgets should be initialized using InitWidget instead.
 func InitWindow(window, parent Window, className string, style, exStyle uint32) error {
+	if win.UseAssert {
+		c := initWidgetCounter
+		log.Println("-> InitWindow(", className, ")", c)
+		defer log.Println("<- InitWindow(", className, ")", c)
+	}
 	wb := window.AsWindowBase()
 	wb.window = window
 	wb.enabled = true
@@ -1876,11 +1882,14 @@ func windowFromHandle(hwnd win.HWND) Window {
 
 func defaultWndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) (result uintptr) {
 	if win.UseAssert {
+		var s string
 		if msgString, found := win.WM_STRING[int(msg)]; found {
-			println("recvmsg", hwnd, msgString, wParam, lParam)
+			s = fmt.Sprintf("recvmsg %d %s %d %d", hwnd, msgString, wParam, lParam)
 		} else {
-			println("recvmsg", hwnd, "WM_USER +", msg-win.WM_USER, wParam, lParam)
+			s = fmt.Sprintf("recvmsg %d %s %d %d %d", hwnd, "WM_USER +", msg-win.WM_USER, wParam, lParam)
 		}
+		log.Println(s, "=>")
+		defer log.Println(s, "<=")
 	}
 	defer func() {
 		if len(appSingleton.panickingPublisher.event.handlers) > 0 {

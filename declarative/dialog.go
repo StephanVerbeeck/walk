@@ -29,6 +29,7 @@ type Dialog struct {
 	OnMouseMove        walk.MouseEventHandler
 	OnMouseUp          walk.MouseEventHandler
 	OnSizeChanged      walk.EventHandler
+	OnStarting         walk.EventHandler
 	Persistent         bool
 	RightToLeftLayout  bool
 	RightToLeftReading bool
@@ -124,7 +125,7 @@ func (d Dialog) Create(owner walk.Form) error {
 		return err
 	}
 
-	return builder.InitWidget(fi, w, func() error {
+	if err := builder.InitWidget(fi, w, func() error {
 		if err := w.SetSizePixels(d.Size.toW()); err != nil {
 			return err
 		}
@@ -162,7 +163,13 @@ func (d Dialog) Create(owner walk.Form) error {
 		}
 
 		return nil
-	})
+	}); err != nil {
+		return err
+	}
+	if d.OnStarting != nil {
+		d.OnStarting()
+	}
+	return nil
 }
 
 func (d Dialog) Run(owner walk.Form) (int, error) {

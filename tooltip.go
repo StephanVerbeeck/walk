@@ -7,6 +7,7 @@
 package walk
 
 import (
+	"log"
 	"syscall"
 	"unsafe"
 
@@ -184,8 +185,9 @@ func (tt *ToolTip) addTrackedTool(tool Widget) error {
 }
 
 func (tt *ToolTip) addTool(tool Widget, track bool) error {
-	hwnd := tool.Handle()
+	return nil
 
+	hwnd := tool.Handle()
 	var ti win.TOOLINFO
 	ti.CbSize = uint32(unsafe.Sizeof(ti))
 	ti.Hwnd = hwnd
@@ -197,6 +199,11 @@ func (tt *ToolTip) addTool(tool Widget, track bool) error {
 	}
 	ti.UId = uintptr(hwnd)
 
+	if win.UseAssert {
+		c := initWidgetCounter
+		log.Println("-> addTool(", ti.Hwnd, ")", c)
+		defer log.Println("<- addTool(", ti.Hwnd, ")", c)
+	}
 	if win.FALSE == tt.SendMessage(win.TTM_ADDTOOL, 0, uintptr(unsafe.Pointer(&ti))) {
 		return newError("TTM_ADDTOOL failed")
 	}

@@ -1883,6 +1883,7 @@ func windowFromHandle(hwnd win.HWND) Window {
 func defaultWndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) (result uintptr) {
 	if win.UseAssert {
 		var s string
+
 		if msgString, found := win.WM_STRING[int(msg)]; found {
 			s = fmt.Sprintf("recvmsg %d %s %d %d", hwnd, msgString, wParam, lParam)
 		} else {
@@ -1890,6 +1891,8 @@ func defaultWndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) (result u
 		}
 		log.Println(s, "=>")
 		defer log.Println(s, "<=")
+
+		win.CheckMessageThread()
 	}
 	defer func() {
 		if len(appSingleton.panickingPublisher.event.handlers) > 0 {

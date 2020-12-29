@@ -47,6 +47,8 @@ func synchronize(f func()) {
 }
 
 func runSynchronized() {
+	win.CheckMessageThread() // only permitted on thread that does windows-message-loop
+
 	// Clear the list of callbacks first to avoid deadlock
 	// if a callback itself calls Synchronize()...
 	syncFuncs.m.Lock()
@@ -368,7 +370,6 @@ func (fb *FormBase) SetRightToLeftLayout(rtl bool) error {
 
 func (fb *FormBase) Run() int {
 	runtime.LockOSThread()
-	defer runtime.UnlockOSThread()
 
 	if fb.owner != nil {
 		win.EnableWindow(fb.owner.Handle(), false)

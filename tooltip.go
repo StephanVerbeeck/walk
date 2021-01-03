@@ -185,8 +185,6 @@ func (tt *ToolTip) addTrackedTool(tool Widget) error {
 }
 
 func (tt *ToolTip) addTool(tool Widget, track bool) error {
-	return nil
-
 	hwnd := tool.Handle()
 	var ti win.TOOLINFO
 	ti.CbSize = uint32(unsafe.Sizeof(ti))

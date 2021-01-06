@@ -1892,8 +1892,8 @@ func defaultWndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) (result u
 		log.Println(s, "=>")
 		defer log.Println(s, "<=")
 
-		win.CheckMessageThread()
 	}
+	win.CheckMessageThread()
 	defer func() {
 		if len(appSingleton.panickingPublisher.event.handlers) > 0 {
 			var err error

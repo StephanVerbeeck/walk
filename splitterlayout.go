@@ -379,6 +379,26 @@ func (l *splitterLayout) Update(reset bool) error {
 		space2 = cb.Width
 	}
 
+	if splitter.FirstFixed > 0 {
+		for i, wb := range widgets {
+			widget := wb.window.(Widget)
+			if i < splitter.FirstFixed {
+				splitter.SetFixed(widget, true)
+			}
+		}
+		splitter.FirstFixed = 0 // Done only once
+	}
+
+	if splitter.LastFixed > 0 {
+		for i, wb := range widgets {
+			widget := wb.window.(Widget)
+			if i >= len(widgets)-splitter.LastFixed {
+				splitter.SetFixed(widget, true)
+			}
+		}
+		splitter.LastFixed = 0 // Done only once
+	}
+
 	anyNonFixed := l.anyNonFixed()
 	var totalRegularSize int
 	for i, wb := range widgets {

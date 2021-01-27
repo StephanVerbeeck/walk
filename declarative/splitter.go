@@ -54,6 +54,8 @@ type HSplitter struct {
 
 	AssignTo    **walk.Splitter
 	HandleWidth int
+	FirstFixed  int // set first N items fixed
+	LastFixed   int // set last N items fixed
 }
 
 func (s HSplitter) Create(builder *Builder) error {
@@ -65,6 +67,9 @@ func (s HSplitter) Create(builder *Builder) error {
 	if s.AssignTo != nil {
 		*s.AssignTo = w
 	}
+
+	w.FirstFixed = s.FirstFixed
+	w.LastFixed = s.LastFixed
 
 	w.SetSuspended(true)
 	builder.Defer(func() error {
@@ -124,6 +129,8 @@ type VSplitter struct {
 
 	AssignTo    **walk.Splitter
 	HandleWidth int
+	FirstFixed  int // set first N items fixed
+	LastFixed   int // set last N items fixed
 }
 
 func (s VSplitter) Create(builder *Builder) error {
@@ -135,6 +142,9 @@ func (s VSplitter) Create(builder *Builder) error {
 	if s.AssignTo != nil {
 		*s.AssignTo = w
 	}
+
+	w.FirstFixed = s.FirstFixed
+	w.LastFixed = s.LastFixed
 
 	w.SetSuspended(true)
 	builder.Defer(func() error {

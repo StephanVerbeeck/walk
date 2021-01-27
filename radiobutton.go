@@ -53,7 +53,8 @@ func NewRadioButton(parent Container) (*RadioButton, error) {
 		rb,
 		parent,
 		"BUTTON",
-		groupBit|win.WS_TABSTOP|win.WS_VISIBLE|win.BS_AUTORADIOBUTTON,
+		//groupBit|win.WS_TABSTOP|win.WS_VISIBLE|win.BS_AUTORADIOBUTTON,
+		groupBit|win.WS_VISIBLE|win.BS_AUTORADIOBUTTON,
 		0); err != nil {
 		return nil, err
 	}

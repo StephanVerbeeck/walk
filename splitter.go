@@ -33,6 +33,8 @@ type Splitter struct {
 	draggedHandle *splitterHandle
 	persistent    bool
 	removing      bool
+	FirstFixed    int // set first N items fixed
+	LastFixed     int // set last N items fixed
 }
 
 func newSplitter(parent Container, orientation Orientation) (*Splitter, error) {
@@ -289,7 +291,11 @@ func (s *Splitter) RestoreState() error {
 }
 
 func (s *Splitter) Fixed(widget Widget) bool {
-	return s.layout.(*splitterLayout).Fixed(widget)
+	layout := s.layout.(*splitterLayout)
+	//return layout.Fixed(widget)
+	handle := widget.Handle()
+	item := layout.hwnd2Item[handle]
+	return item != nil && item.fixed
 }
 
 func (s *Splitter) SetFixed(widget Widget, fixed bool) error {

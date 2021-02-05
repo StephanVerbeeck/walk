@@ -8,10 +8,9 @@ import (
 	"fmt"
 	"log"
 	"time"
-)
 
-import (
 	"github.com/StephanVerbeeck/walk"
+
 	. "github.com/StephanVerbeeck/walk/declarative"
 )
 

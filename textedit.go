@@ -9,9 +9,7 @@ package walk
 import (
 	"syscall"
 	"unsafe"
-)
 
-import (
 	"github.com/StephanVerbeeck/win"
 )
 
@@ -19,6 +17,7 @@ type TextEdit struct {
 	WidgetBase
 	readOnlyChangedPublisher EventPublisher
 	textChangedPublisher     EventPublisher
+	editingFinishedPublisher EventPublisher
 	textColor                Color
 	compactHeight            bool
 	havePainted              bool
@@ -224,6 +223,10 @@ func (te *TextEdit) TextChanged() *Event {
 	return te.textChangedPublisher.Event()
 }
 
+func (te *TextEdit) EditingFinished() *Event {
+	return te.editingFinishedPublisher.Event()
+}
+
 func (te *TextEdit) TextColor() Color {
 	return te.textColor
 }
@@ -253,6 +256,9 @@ func (te *TextEdit) WndProc(hwnd win.HWND, msg uint32, wParam, lParam uintptr) u
 		if Key(wParam) == KeyA && ControlDown() {
 			te.SetTextSelection(0, -1)
 		}
+
+	case win.WM_KILLFOCUS:
+		te.editingFinishedPublisher.Publish()
 
 	case win.WM_PAINT:
 		if !te.havePainted {

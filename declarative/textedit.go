@@ -48,15 +48,16 @@ type TextEdit struct {
 
 	// TextEdit
 
-	AssignTo      **walk.TextEdit
-	HScroll       bool
-	MaxLength     int
-	OnTextChanged walk.EventHandler
-	ReadOnly      Property
-	Text          Property
-	TextAlignment Alignment1D
-	TextColor     walk.Color
-	VScroll       bool
+	AssignTo          **walk.TextEdit
+	HScroll           bool
+	MaxLength         int
+	OnTextChanged     walk.EventHandler
+	OnEditingFinished walk.EventHandler
+	ReadOnly          Property
+	Text              Property
+	TextAlignment     Alignment1D
+	TextColor         walk.Color
+	VScroll           bool
 }
 
 func (te TextEdit) Create(builder *Builder) error {
@@ -90,6 +91,9 @@ func (te TextEdit) Create(builder *Builder) error {
 
 		if te.OnTextChanged != nil {
 			w.TextChanged().Attach(te.OnTextChanged)
+		}
+		if te.OnEditingFinished != nil {
+			w.EditingFinished().Attach(te.OnEditingFinished)
 		}
 
 		return nil

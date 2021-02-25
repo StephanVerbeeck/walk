@@ -27,6 +27,7 @@ const (
 type ImageView struct {
 	*CustomWidget
 	image                  Image
+	imageDispose           bool // true when the imageview is the last owner of the image (and should dispose it when done or replaced)
 	imageChangedPublisher  EventPublisher
 	margin96dpi            int
 	marginChangedPublisher EventPublisher
@@ -81,7 +82,7 @@ func NewImageView(parent Container) (*ImageView, error) {
 				return ErrInvalidType
 			}
 
-			return iv.SetImage(img, true)
+			return iv.SetImage(img, false)
 		},
 		iv.imageChangedPublisher.Event()))
 
@@ -160,11 +161,14 @@ func (iv *ImageView) SetImage(value Image, dispose bool) error {
 		return nil
 	}
 
-	if dispose && iv.image != nil {
-		iv.image.Dispose()
+	if iv.imageDispose && iv.image != nil {
+		image := iv.image
 		iv.image = nil
+		image.Dispose()
+		iv.imageDispose = false
 	}
 	iv.image = value
+	iv.imageDispose = dispose
 
 	_, isMetafile := value.(*Metafile)
 	iv.SetClearsBackground(isMetafile)
